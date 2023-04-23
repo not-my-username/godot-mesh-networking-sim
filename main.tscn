@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://cvcddapx8r1jn"]
+
+[ext_resource type="Script" path="res://Scripts/Camrea.gd" id="1_nxwdh"]
+[ext_resource type="Script" path="res://fps.gd" id="2_it872"]
+[ext_resource type="Script" path="res://Scripts/Controller.gd" id="2_jrij7"]
+[ext_resource type="Texture2D" uid="uid://b4577w6y7pgjf" path="res://Textures/computer.png" id="5_dn38h"]
+[ext_resource type="Script" path="res://Scripts/Computer.gd" id="6_cih7c"]
+[ext_resource type="Texture2D" uid="uid://cewr08sfewl25" path="res://Textures/server.png" id="7_7pryx"]
+[ext_resource type="Script" path="res://Scripts/Server.gd" id="8_qg8kr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vsv"]
+size = Vector2(42, 162)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_us70n"]
+size = Vector2(48, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fqw02"]
+radius = 100.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(528, 500)
+zoom = Vector2(0.73, 0.73)
+script = ExtResource("1_nxwdh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS"
+script = ExtResource("2_it872")
+
+[node name="Controller" type="Node2D" parent="."]
+script = ExtResource("2_jrij7")
+
+[node name="Wall" type="Area2D" parent="."]
+visible = false
+position = Vector2(1040, 376)
+metadata/_edit_group_ = true
+
+[node name="Wall2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(11, 71)
+shape = SubResource("RectangleShape2D_u8vsv")
+
+[node name="Computer" type="Sprite2D" parent="."]
+position = Vector2(-133, 425)
+texture = ExtResource("5_dn38h")
+script = ExtResource("6_cih7c")
+metadata/_edit_group_ = true
+
+[node name="Mouse Box" type="Area2D" parent="Computer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Computer/Mouse Box"]
+shape = SubResource("RectangleShape2D_us70n")
+
+[node name="Wireless Signal" type="Area2D" parent="Computer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Computer/Wireless Signal"]
+shape = SubResource("CircleShape2D_fqw02")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
+
+[node name="RayCast2D" type="RayCast2D" parent="Computer"]
+collide_with_areas = true
+
+[node name="Server" type="Sprite2D" parent="."]
+position = Vector2(1228, 432)
+texture = ExtResource("7_7pryx")
+script = ExtResource("8_qg8kr")
+metadata/_edit_group_ = true
+
+[node name="Mouse Box" type="Area2D" parent="Server"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Server/Mouse Box"]
+shape = SubResource("RectangleShape2D_us70n")
+
+[node name="Wireless Signal" type="Area2D" parent="Server"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Server/Wireless Signal"]
+shape = SubResource("CircleShape2D_fqw02")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
+
+[node name="RayCast2D" type="RayCast2D" parent="Server"]
+collide_with_areas = true
+
+[connection signal="mouse_entered" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_exited"]
+[connection signal="area_entered" from="Computer/Wireless Signal" to="Computer" method="_on_wireless_signal_area_entered"]
+[connection signal="area_exited" from="Computer/Wireless Signal" to="Computer" method="_on_wireless_signal_area_exited"]
+[connection signal="mouse_entered" from="Server/Mouse Box" to="Server" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Server/Mouse Box" to="Server" method="_on_area_2d_mouse_exited"]
+[connection signal="area_entered" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_entered"]
+[connection signal="area_exited" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_exited"]
