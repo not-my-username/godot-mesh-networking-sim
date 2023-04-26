@@ -66,9 +66,11 @@ func _process(delta):
 				broadcast_queue.append(data_to_send)
 		queue.remove_at(0)
 		
-		if ready_to_broadcast:
+		if ready_to_broadcast and len(broadcast_queue) !=0:
 			broadcast(broadcast_queue[0])
-			broadcast_queue.remove_at(0)	
+			print("Queue For: ", self.name, ": ", broadcast_queue)
+			print("Removing Item From broadcast_queue for: ", self.name)			
+			broadcast_queue.erase(broadcast_queue[0])
 			print("Queue For: ", self.name, ": ", broadcast_queue)
 		
 func send(data, from):
