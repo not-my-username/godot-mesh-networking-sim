@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvcddapx8r1jn"]
+[gd_scene load_steps=12 format=3 uid="uid://cvcddapx8r1jn"]
 
 [ext_resource type="Script" path="res://Scripts/Camrea.gd" id="1_nxwdh"]
 [ext_resource type="Script" path="res://fps.gd" id="2_it872"]
 [ext_resource type="Script" path="res://Scripts/Controller.gd" id="2_jrij7"]
+[ext_resource type="Script" path="res://Console.gd" id="3_guboy"]
 [ext_resource type="Texture2D" uid="uid://b4577w6y7pgjf" path="res://Textures/computer.png" id="5_dn38h"]
 [ext_resource type="Script" path="res://Scripts/Computer.gd" id="6_cih7c"]
 [ext_resource type="Texture2D" uid="uid://cewr08sfewl25" path="res://Textures/server.png" id="7_7pryx"]
@@ -18,19 +19,6 @@ size = Vector2(48, 48)
 radius = 100.0
 
 [node name="Node2D" type="Node2D"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(528, 500)
-zoom = Vector2(0.73, 0.73)
-script = ExtResource("1_nxwdh")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-
-[node name="Label" type="Label" parent="Camera2D/CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "FPS"
-script = ExtResource("2_it872")
 
 [node name="Controller" type="Node2D" parent="."]
 script = ExtResource("2_jrij7")
@@ -86,6 +74,37 @@ debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
 [node name="RayCast2D" type="RayCast2D" parent="Server"]
 collide_with_areas = true
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(528, 500)
+zoom = Vector2(0.73, 0.73)
+script = ExtResource("1_nxwdh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="FPS" type="Label" parent="Camera2D/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 26.0
+text = "FPS"
+script = ExtResource("2_it872")
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Console" type="LineEdit" parent="Camera2D/CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+script = ExtResource("3_guboy")
+
 [connection signal="mouse_entered" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_exited"]
 [connection signal="area_entered" from="Computer/Wireless Signal" to="Computer" method="_on_wireless_signal_area_entered"]
@@ -94,3 +113,4 @@ collide_with_areas = true
 [connection signal="mouse_exited" from="Server/Mouse Box" to="Server" method="_on_area_2d_mouse_exited"]
 [connection signal="area_entered" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_entered"]
 [connection signal="area_exited" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_exited"]
+[connection signal="text_changed" from="Camera2D/CanvasLayer/Control/Console" to="Camera2D/CanvasLayer/Control/Console" method="_on_text_changed"]

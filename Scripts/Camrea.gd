@@ -4,24 +4,25 @@ var speed = 3
 var velocity = Vector2(0, 0)
 var zoom_velocity = Vector2(0, 0) 
 var boost = 1
+var can_move = true
 
 func _process(delta):
-	if Input.is_action_pressed("up"):
+	if Input.is_action_pressed("up") and can_move:
 		velocity.y =- speed * boost
-	if Input.is_action_pressed("down"):
+	if Input.is_action_pressed("down") and can_move:
 		velocity.y = speed * boost
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("left") and can_move:
 		velocity.x =- speed * boost
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("right") and can_move:
 		velocity.x = speed * boost
-	if Input.is_action_pressed("shift"):
+	if Input.is_action_pressed("shift") and can_move:
 		boost = 7
 	else:
 		boost = 1
-	if Input.is_action_pressed("zoom_in"):
+	if Input.is_action_pressed("zoom_in") and can_move:
 		zoom_velocity.x += 0.1 / boost
 		zoom_velocity.y += 0.1 / boost
-	if Input.is_action_pressed("zoom_out"):
+	if Input.is_action_pressed("zoom_out") and can_move:
 		zoom_velocity.x -= 0.1 / boost
 		zoom_velocity.y -= 0.1 / boost
 	if Input.is_action_just_pressed("middle_mouse"):

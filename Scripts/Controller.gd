@@ -1,7 +1,7 @@
 extends Node2D
 
-var w = 4
-var h = 4
+var w = 10
+var h = 10
 var i = 0
 
 var debug = true
@@ -20,17 +20,17 @@ func _ready():
 			self.add_child(node)
 			i+=1
 			
-func _unhandled_input(event):
-	if event is InputEventKey:
-		var k = event.keycode
-		if k >= 48 and k <= 57 and event.pressed == false:
-			debug_name += str(k - 48)
-#			print(debug_name) 
-		if k == 4194309 and event.pressed == false:
-			var debug_node = get_node("Node" + debug_name)
-			print(debug_node)
-			
-			debug_name = ""
+#func _unhandled_input(event):
+#	if event is InputEventKey:
+#		var k = event.keycode
+#		if k >= 48 and k <= 57 and event.pressed == false:
+#			debug_name += str(k - 48)
+##			print(debug_name) 
+#		if k == 4194309 and event.pressed == false:
+#			var debug_node = get_node("Node" + debug_name)
+#			print(debug_node)
+#
+#			debug_name = ""
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

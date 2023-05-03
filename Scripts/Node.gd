@@ -29,9 +29,17 @@ func _ready():
 	collision.set_shape(shape)
 	collision.shape.radius = 0
 	self.get_node("Mesh Signal").add_child(collision)
+	broadcast_queue = broadcast_queue.duplicate()
 
 func _process(delta):
 #	self.get_node("Distance").text = str(connected_devices)
+	if ready_to_broadcast and len(broadcast_queue) !=0:
+		if broadcast_queue[0].id not in packets_handled:
+			if self.name == "Node120":
+				print("Node120 queue: ", broadcast_queue)
+			broadcast(broadcast_queue[0])		
+		broadcast_queue.erase(broadcast_queue[0])
+				
 	if len(queue) != 0 :
 		data_to_send = {}
 		if queue[0].type == "data":
@@ -53,8 +61,8 @@ func _process(delta):
 				data_to_send.path.append(str(self.name))
 				data_to_send.id = randi_range(999999, 100000)
 				data_to_send.is_return = true
+				data_to_send.to = data_to_send.from
 				data_to_send.from = str(self.name)
-				packets_handled.append(data_to_send.id)
 				await get_tree().create_timer(0.1).timeout
 				broadcast_queue.append(data_to_send)
 			elif item.to == self.name:
@@ -66,12 +74,7 @@ func _process(delta):
 				broadcast_queue.append(data_to_send)
 		queue.remove_at(0)
 		
-		if ready_to_broadcast and len(broadcast_queue) !=0:
-			broadcast(broadcast_queue[0])
-			print("Queue For: ", self.name, ": ", broadcast_queue)
-			print("Removing Item From broadcast_queue for: ", self.name)			
-			broadcast_queue.erase(broadcast_queue[0])
-			print("Queue For: ", self.name, ": ", broadcast_queue)
+		
 		
 func send(data, from):
 	if debug:
@@ -87,6 +90,7 @@ func broadcast(data):
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 65
 	await get_tree().create_timer(0.1).timeout
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 0
+	packets_handled.append(data.id)	
 	ready_to_broadcast = true	
 
 func add_connection(node):
@@ -107,7 +111,6 @@ func _on_area_2d_area_entered(area):
 			if data.is_return and self.name not in data.path:
 				return
 			else:
-				packets_handled.append(data.id)
 				queue.append(data)		
 				print(self.name, " Receved Data From: ", area.get_parent().name)
 		else:
