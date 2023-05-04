@@ -38,10 +38,13 @@ func _unhandled_input(event):
 			history_index += 1
 			if history_index > len(history)-1: history_index = len(history) - 1
 			self.text = history[history_index]
+			self.set_caret_column(len(self.text))
 		if event.keycode == 4194322:
 			history_index -= 1
 			if history_index < 0: history_index = 0		
 			self.text = history[history_index]
+			self.set_caret_column(len(self.text))
+	
 
 func run_command(text):
 	var split_text = text.split(" ")

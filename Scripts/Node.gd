@@ -34,10 +34,10 @@ func _ready():
 func _process(delta):
 #	self.get_node("Distance").text = str(connected_devices)
 	if ready_to_broadcast and len(broadcast_queue) !=0:
-		if broadcast_queue[0].id not in packets_handled:
-			if self.name == "Node120":
-				print("Node120 queue: ", broadcast_queue)
-			broadcast(broadcast_queue[0])		
+		if self.name == "Node0":
+			print(broadcast_queue)
+			print()
+		broadcast(broadcast_queue[0])		
 		broadcast_queue.erase(broadcast_queue[0])
 				
 	if len(queue) != 0 :
@@ -51,58 +51,63 @@ func _process(delta):
 			data_to_send.id = randi_range(999999, 100000)
 			data_to_send.path = [str(self.name)]
 			active_packets[item.id] = item
+			packets_handled.append(data_to_send.id)
 			broadcast_queue.append(data_to_send)
 			# Looking at where broadcast function was called from, thinking it is duplicating data again
 		if queue[0].type == "path":
 			var item = queue[0].duplicate(true) 
 			if item.to in connected_devices:
-				print(self.name, " Found Device Path Is Sent To")
 				data_to_send = item
 				data_to_send.path.append(str(self.name))
 				data_to_send.id = randi_range(999999, 100000)
+				packets_handled.append(data_to_send.id)
 				data_to_send.is_return = true
 				data_to_send.to = data_to_send.from
 				data_to_send.from = str(self.name)
-				await get_tree().create_timer(0.1).timeout
+#				await get_tree().create_timer(0.1).timeout
 				broadcast_queue.append(data_to_send)
 			elif item.to == self.name:
-				print("Receved Path Packet From: ", item.from)
+#				print("\n\n\n\n\n")
+#				print(self.name, " Receved Path Packet From: ", item.from)
+#				print(item)
+#				print("\n\n\n\n\n")
+				pass
+				
 			else:
-				data_to_send = item.duplicate(true) 
-				data_to_send.path.append(str(self.name))
+				data_to_send = item.duplicate(true)
+				if not item.is_return:
+					data_to_send.path.append(str(self.name))
 				data_to_send.last = self.name
 				broadcast_queue.append(data_to_send)
-		queue.remove_at(0)
+		
+		
+		if len(queue) != 0:
+			queue.remove_at(0)
+			if self.name == "Node120":
+				print("Clearing queue")
 		
 		
 		
 func send(data, from):
-	if debug:
-		print(data)
+
 	queue.append(data)
 	
 func broadcast(data):
 	ready_to_broadcast = false
-	if data.is_return:
-		print("Returning: ", data)
-	print("Sending Data From: ", self.name)
 	self.get_node("Mesh Signal/CollisionShape2D").set_meta("data", data)
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 65
 	await get_tree().create_timer(0.1).timeout
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 0
-	packets_handled.append(data.id)	
 	ready_to_broadcast = true	
 
 func add_connection(node):
 	if node.name not in connected_devices:
 		connected_devices.append(node.name)
-		print(self.name, " Has Connected To: ", node.name)
 
 
 func remove_connection(node):
 	if node.name in connected_devices:	
 		connected_devices.erase(node.name)
-		print(self.name, " Has Dissconnected From: ", node.name)	
 
 func _on_area_2d_area_entered(area):
 	if area.name == "Mesh Signal" and area != $"Mesh Signal":
@@ -111,11 +116,13 @@ func _on_area_2d_area_entered(area):
 			if data.is_return and self.name not in data.path:
 				return
 			else:
-				queue.append(data)		
-				print(self.name, " Receved Data From: ", area.get_parent().name)
-		else:
-			if debug:			
-				print(self.name, " Has already has this packet from: ", area.get_parent().name, ": Packets Handled: ", packets_handled)
+				packets_handled.append(data.id)
+#				if self.name == "Node120":
+#					print("Appeneding: ", data)
+#					print()
+				queue.append(data)	
+				
+		
 #	elif area.name == "Wireless Signal":
 #		print(self.name, " Has Connected To: ", area.get_parent().name)
 #		connected_devices.append(area.get_parent().name)
