@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvcddapx8r1jn"]
+[gd_scene load_steps=13 format=3 uid="uid://cvcddapx8r1jn"]
 
 [ext_resource type="Script" path="res://Scripts/Camrea.gd" id="1_nxwdh"]
 [ext_resource type="Script" path="res://fps.gd" id="2_it872"]
 [ext_resource type="Script" path="res://Scripts/Controller.gd" id="2_jrij7"]
 [ext_resource type="Script" path="res://Console.gd" id="3_guboy"]
-[ext_resource type="Texture2D" uid="uid://b4577w6y7pgjf" path="res://Textures/computer.png" id="5_dn38h"]
+[ext_resource type="Texture2D" uid="uid://ccsuoqocf715x" path="res://Textures/computer.png" id="5_dn38h"]
 [ext_resource type="Script" path="res://Scripts/Computer.gd" id="6_cih7c"]
-[ext_resource type="Texture2D" uid="uid://cewr08sfewl25" path="res://Textures/server.png" id="7_7pryx"]
+[ext_resource type="Texture2D" uid="uid://m3tidsrx552w" path="res://Textures/server.png" id="7_7pryx"]
+[ext_resource type="Texture2D" uid="uid://botti246kjv26" path="res://Textures/fps_box.png" id="7_youds"]
 [ext_resource type="Script" path="res://Scripts/Server.gd" id="8_qg8kr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vsv"]
@@ -32,11 +33,14 @@ metadata/_edit_group_ = true
 position = Vector2(11, 71)
 shape = SubResource("RectangleShape2D_u8vsv")
 
-[node name="Computer" type="Sprite2D" parent="."]
+[node name="Computer" type="Node2D" parent="."]
 position = Vector2(-133, 425)
-texture = ExtResource("5_dn38h")
 script = ExtResource("6_cih7c")
 metadata/_edit_group_ = true
+
+[node name="Computer" type="Sprite2D" parent="Computer"]
+scale = Vector2(0.471, 0.471)
+texture = ExtResource("5_dn38h")
 
 [node name="Mouse Box" type="Area2D" parent="Computer"]
 
@@ -53,9 +57,8 @@ debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
 [node name="RayCast2D" type="RayCast2D" parent="Computer"]
 collide_with_areas = true
 
-[node name="Server" type="Sprite2D" parent="."]
+[node name="Server" type="Node2D" parent="."]
 position = Vector2(1228, 432)
-texture = ExtResource("7_7pryx")
 script = ExtResource("8_qg8kr")
 metadata/_edit_group_ = true
 
@@ -74,18 +77,16 @@ debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
 [node name="RayCast2D" type="RayCast2D" parent="Server"]
 collide_with_areas = true
 
+[node name="Server" type="Sprite2D" parent="Server"]
+scale = Vector2(0.464, 0.464)
+texture = ExtResource("7_7pryx")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(528, 500)
 zoom = Vector2(0.73, 0.73)
 script = ExtResource("1_nxwdh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-
-[node name="FPS" type="Label" parent="Camera2D/CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 26.0
-text = "FPS"
-script = ExtResource("2_it872")
 
 [node name="Control" type="Control" parent="Camera2D/CanvasLayer"]
 layout_mode = 3
@@ -95,6 +96,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="FpsBox" type="Sprite2D" parent="Camera2D/CanvasLayer/Control"]
+position = Vector2(47, 19)
+scale = Vector2(0.615646, 0.670213)
+texture = ExtResource("7_youds")
+
+[node name="FPS" type="Label" parent="Camera2D/CanvasLayer/Control"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 21.0
+offset_top = 7.0
+offset_right = 61.0
+offset_bottom = 33.0
+text = "FPS"
+script = ExtResource("2_it872")
 
 [node name="Console" type="LineEdit" parent="Camera2D/CanvasLayer/Control"]
 visible = false

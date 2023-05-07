@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 var connected_devices = []
 var active_packets = {}
@@ -19,6 +19,8 @@ var path_packet = {
 }
 var debug
 var hover = false
+var texture_node
+var emmit_animation_running = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	debug = self.get_parent().debug
@@ -29,17 +31,23 @@ func _ready():
 	collision.set_shape(shape)
 	collision.shape.radius = 0
 	self.get_node("Mesh Signal").add_child(collision)
-	broadcast_queue = broadcast_queue.duplicate()
+	texture_node = $Texture
+	
 
 func _process(delta):
 #	self.get_node("Distance").text = str(connected_devices)
+	if self.get_parent().can_run and Input.is_action_just_pressed("enter"):
+		await run_mesh()
+		
+func run_mesh():
+	if emmit_animation_running:
+		emmit_animation_close()
 	if ready_to_broadcast and len(broadcast_queue) !=0:
-		if self.name == "Node0":
-			print(broadcast_queue)
-			print()
-		broadcast(broadcast_queue[0])		
+		await broadcast(broadcast_queue[0])
+		emmit_animation_open()
 		broadcast_queue.erase(broadcast_queue[0])
-				
+		if len(broadcast_queue) == 0:
+				texture_node.texture = load("res://Textures/Node/node.png")
 	if len(queue) != 0 :
 		data_to_send = {}
 		if queue[0].type == "data":
@@ -83,14 +91,11 @@ func _process(delta):
 		
 		if len(queue) != 0:
 			queue.remove_at(0)
-			if self.name == "Node120":
-				print("Clearing queue")
-		
-		
 		
 func send(data, from):
-
 	queue.append(data)
+	texture_node.texture = load("res://Textures/Node/node-has-packet.png")
+	
 	
 func broadcast(data):
 	ready_to_broadcast = false
@@ -98,16 +103,20 @@ func broadcast(data):
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 65
 	await get_tree().create_timer(0.1).timeout
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 0
-	ready_to_broadcast = true	
+	ready_to_broadcast = true
+	return ready_to_broadcast
 
 func add_connection(node):
 	if node.name not in connected_devices:
 		connected_devices.append(node.name)
+		texture_node.texture = load("res://Textures/Node/node-device-connected.png")
 
 
 func remove_connection(node):
 	if node.name in connected_devices:	
 		connected_devices.erase(node.name)
+		if len(connected_devices) == 0:
+			texture_node.texture = load("res://Textures/Node/node.png")
 
 func _on_area_2d_area_entered(area):
 	if area.name == "Mesh Signal" and area != $"Mesh Signal":
@@ -120,7 +129,8 @@ func _on_area_2d_area_entered(area):
 #				if self.name == "Node120":
 #					print("Appeneding: ", data)
 #					print()
-				queue.append(data)	
+				queue.append(data)
+				texture_node.texture = load("res://Textures/Node/node-has-packet.png")
 				
 		
 #	elif area.name == "Wireless Signal":
@@ -143,3 +153,24 @@ func _on_mesh_signal_area_exited(area):
 #	if area.name == "Mesh Signal":
 #		return
 	pass
+
+func emmit_animation_open():
+	if $Emmit.visible:
+		return
+	emmit_animation_running = true
+	$Emmit.visible = true
+	var i = 0.07
+	while i < .7:
+		$Emmit.scale = Vector2(i, i)
+		await get_tree().create_timer(0.01).timeout	
+		i += 0.08
+	
+func emmit_animation_close():
+	var i = .7
+	while i > 0.07:
+		$Emmit.scale = Vector2(i, i)
+		await get_tree().create_timer(0.01).timeout	
+		i -= 0.08
+		
+	$Emmit.visible = false
+	emmit_animation_running = false

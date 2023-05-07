@@ -1,16 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp2og3uyjdklg"]
+[gd_scene load_steps=5 format=3 uid="uid://bp2og3uyjdklg"]
 
 [ext_resource type="Script" path="res://Scripts/Node.gd" id="1_tu833"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cgryt"]
-load_path = "res://.godot/imported/default_state.png-8aa5d4bd5a4b7bb87ba4f58507707011.ctex"
+[ext_resource type="Texture2D" uid="uid://qih4cb0y7bfu" path="res://Textures/Node/emmit.png" id="2_gqige"]
+[ext_resource type="Texture2D" uid="uid://b2281l0wdwlr7" path="res://Textures/Node/node.png" id="3_7mc01"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sboq0"]
 size = Vector2(3.03133, 3.22293)
 
-[node name="Node" type="Sprite2D"]
+[node name="Node" type="Node2D"]
 scale = Vector2(1.31258, 1.31258)
-texture = SubResource("CompressedTexture2D_cgryt")
 script = ExtResource("1_tu833")
 
 [node name="Distance" type="RichTextLabel" parent="."]
@@ -36,6 +34,15 @@ priority = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node Box"]
 scale = Vector2(11.876, -11.1699)
 shape = SubResource("RectangleShape2D_sboq0")
+
+[node name="Emmit" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.019, 0.019)
+texture = ExtResource("2_gqige")
+
+[node name="Texture" type="Sprite2D" parent="."]
+scale = Vector2(0.151, 0.151)
+texture = ExtResource("3_7mc01")
 
 [connection signal="area_entered" from="Node Box" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Node Box" to="." method="_on_area_2d_area_exited"]

@@ -1,12 +1,13 @@
 extends Node2D
 
-var w = 10
-var h = 10
+var w = 4
+var h = 4
 var i = 0
 
 var debug = true
 const res = preload("res://node.tscn")
 var debug_name = ""
+var can_run = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var root = get_tree().get_root()

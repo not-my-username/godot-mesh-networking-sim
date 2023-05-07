@@ -25,7 +25,7 @@ func _process(delta):
 		is_active = false
 		fps_node.visible = true
 		camrea_node.can_move = true
-	if Input.is_action_just_pressed("enter"):
+	if Input.is_action_just_pressed("enter") and is_active:
 		run_command(self.text)
 		history.append(self.text)
 		history_index = -1

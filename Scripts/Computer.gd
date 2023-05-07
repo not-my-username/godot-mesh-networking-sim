@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 var hover = false
 var move = false
@@ -15,10 +15,8 @@ var packet = {
 	"type":""
 }
 @onready var rayCast2D = $RayCast2D
+@onready var console = get_tree().root.get_child(0).get_node("Camera2D/CanvasLayer/Control/Console")
 
-#func _ready():
-#	var rayCast2D = $RayCast2D;
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("leftClick") and hover:
@@ -28,7 +26,7 @@ func _process(delta):
 	if move:
 		self.position = get_global_mouse_position()
 		
-	if Input.is_action_just_pressed("space"):
+	if Input.is_action_just_pressed("space") and console.is_active == false:
 			print("Sending Data")
 			if nearest_node:
 				packet.to = "Server"
@@ -42,7 +40,6 @@ func _process(delta):
 		nearest_node = nodes_in_range[0]
 
 		for node in nodes_in_range: 
-			node.get_parent().texture = load("res://Textures/Node/default_state.png")
 			node.get_parent().remove_connection(self)			
 			var distance_to_node = node.global_position.distance_to(self.position)
 			
@@ -53,7 +50,6 @@ func _process(delta):
 
 					nearest_node = node
 		if nearest_node:
-			nearest_node.get_parent().texture = load("res://Textures/Node/device_conneted.png")
 			nearest_node.get_parent().add_connection(self)
 
 #		for i in range(0, 200):
@@ -76,6 +72,6 @@ func _on_wireless_signal_area_exited(area):
 		area.get_parent().get_node("Distance").text = ""
 		area.get_parent().remove_connection(self)
 		if area == nearest_node:
-			nearest_node.get_parent().texture = load("res://Textures/Node/default_state.png") 
+			nearest_node.get_parent().get_node("Texture").texture = load("res://Textures/Node/node.png") 
 			nearest_node.get_parent().remove_connection(self)
 			nearest_node = null
