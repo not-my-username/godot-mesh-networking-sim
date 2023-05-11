@@ -201,6 +201,7 @@ button_pressed = true
 text = "Auto Run"
 
 [node name="Button" type="Button" parent="Camera2D/CanvasLayer/Control/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -229,6 +230,7 @@ texture = ExtResource("11_3niit")
 expand_mode = 1
 
 [node name="Button2" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.421
