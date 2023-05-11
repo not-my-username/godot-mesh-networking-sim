@@ -14,6 +14,7 @@ var packet = {
 	"path":[],
 	"type":""
 }
+var message = "Hello From Computer"
 @onready var rayCast2D = $RayCast2D
 @onready var console = get_tree().root.get_child(0).get_node("Camera2D/CanvasLayer/Control/Console")
 
@@ -31,10 +32,11 @@ func _process(delta):
 			if nearest_node:
 				packet.to = "Server"
 				packet.from = "Computer"
-				packet.data = "Hello From Computer"
+				packet.data = message
 				packet.id = randi_range(999999, 100000)
 				packet.type = "data"
 				nearest_node.get_parent().send(packet, self)
+				show_message(message)
 
 	if move and len(nodes_in_range) != 0:
 		nearest_node = nodes_in_range[0]
@@ -73,3 +75,10 @@ func _on_wireless_signal_area_exited(area):
 		area.get_parent().remove_connection(self)
 		if area == nearest_node:
 			nearest_node = null
+
+
+
+func show_message(message):
+	$Message.text = "[right]" + message
+	await get_tree().create_timer(5).timeout
+	$Message.text = ""	

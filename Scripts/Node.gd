@@ -17,6 +17,18 @@ var path_packet = {
 	"is_return":false,
 	"last":""
 }
+var data_packet = {
+	"to":"",
+	"from":"",
+	"data":"",
+	"id":0,
+	"path":[],
+	"type":""
+}
+
+var known_paths = {
+	
+}
 var debug
 var hover = false
 var texture_node
@@ -60,26 +72,39 @@ func run_mesh():
 		data_to_send = {}
 		if queue[0].type == "data":
 			var item = queue[0].duplicate(true)
-			data_to_send = path_packet.duplicate(true)
-			data_to_send.to = item.to
-			data_to_send.from = str(self.name)
-			data_to_send.data_id = item.id
-			data_to_send.id = randi_range(999999, 100000)
-			data_to_send.path = [str(self.name)]
-			active_packets[item.id] = item
-			packets_handled.append(data_to_send.id)
-			broadcast_queue.append(data_to_send)
-			# Looking at where broadcast function was called from, thinking it is duplicating data again
+			if item.from in connected_devices:
+				if item.to in known_paths:
+					data_to_send = item
+					data_to_send.path = known_paths[item.to]
+					packets_handled.append(data_to_send.id) 					
+					broadcast_queue.append(data_to_send)					
+				else:
+					data_to_send = path_packet.duplicate(true)
+					data_to_send.to = item.to
+					data_to_send.from = str(self.name)
+					data_to_send.data_id = item.id
+					data_to_send.id = randi_range(999999, 100000)
+					data_to_send.path = [str(self.name)]
+					active_packets[item.id] = item
+					packets_handled.append(data_to_send.id)
+					broadcast_queue.append(data_to_send)
+			if item.to in connected_devices:
+				get_tree().root.get_child(0).get_node(item.to).receive(item)
+			else:
+				data_to_send = item
+				packets_handled.append(data_to_send.id)
+				broadcast_queue.append(data_to_send)
+				
 		if queue[0].type == "path":
 			var item = queue[0].duplicate(true) 
 			if item.to in connected_devices:
-				data_to_send = item
+				data_to_send = item.duplicate(true) 
 				data_to_send.path.append(str(self.name))
 				data_to_send.id = randi_range(999999, 100000)
 				packets_handled.append(data_to_send.id)
 				data_to_send.is_return = true
 				data_to_send.to = data_to_send.from
-				data_to_send.from = str(self.name)
+				data_to_send.from = str(item.to)
 #				await get_tree().create_timer(0.1).timeout
 				broadcast_queue.append(data_to_send)
 			elif item.to == self.name:
@@ -87,8 +112,16 @@ func run_mesh():
 #				print(self.name, " Receved Path Packet From: ", item.from)
 #				print(item)
 #				print("\n\n\n\n\n")
+				known_paths[item.from] = item.path 
 				if len(broadcast_queue) == 0 and len(queue) == 0:
 					has_packet_animation_close()
+				
+				print(self.name, " Active Packets: ", active_packets)
+				data_to_send = active_packets[item.data_id]
+				data_to_send.path = item.path
+				active_packets.erase(item.data_id)
+				packets_handled.append(data_to_send.id)
+				broadcast_queue.append(data_to_send)
 				
 			else:
 				data_to_send = item.duplicate(true)
@@ -132,12 +165,16 @@ func _on_area_2d_area_entered(area):
 	if area.name == "Mesh Signal" and area != $"Mesh Signal":
 		var data = area.get_node("CollisionShape2D").get_meta("data")
 		if data.id not in packets_handled:
-			if data.is_return and self.name not in data.path:
-				return
-			else:
-				packets_handled.append(data.id)
-				queue.append(data)
-				has_packet_animation_open()
+			if data.type == "path":
+				if data.is_return and self.name not in data.path:
+					return
+			elif data.type == "data":
+				if data.type == "data" and self.name not in data.path:
+					return
+			packets_handled.append(data.id)
+			queue.append(data)
+			has_packet_animation_open()
+			
 				
 		
 #	elif area.name == "Wireless Signal":

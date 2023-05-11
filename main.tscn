@@ -58,7 +58,6 @@ shape = SubResource("RectangleShape2D_u8vsv")
 [node name="Computer" type="Node2D" parent="."]
 position = Vector2(-133, 425)
 script = ExtResource("6_cih7c")
-metadata/_edit_group_ = true
 
 [node name="Computer" type="Sprite2D" parent="Computer"]
 scale = Vector2(0.471, 0.471)
@@ -79,10 +78,18 @@ debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
 [node name="RayCast2D" type="RayCast2D" parent="Computer"]
 collide_with_areas = true
 
+[node name="Message" type="RichTextLabel" parent="Computer"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -576.0
+offset_top = -47.0
+offset_right = -37.0
+offset_bottom = -24.0
+bbcode_enabled = true
+fit_content = true
+
 [node name="Server" type="Node2D" parent="."]
 position = Vector2(-139, 659)
 script = ExtResource("8_qg8kr")
-metadata/_edit_group_ = true
 
 [node name="Mouse Box" type="Area2D" parent="Server"]
 
@@ -102,6 +109,15 @@ collide_with_areas = true
 [node name="Server" type="Sprite2D" parent="Server"]
 scale = Vector2(0.464, 0.464)
 texture = ExtResource("7_7pryx")
+
+[node name="Message" type="RichTextLabel" parent="Server"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 41.0
+offset_top = -34.0
+offset_right = 580.0
+offset_bottom = -11.0
+bbcode_enabled = true
+fit_content = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(528, 500)

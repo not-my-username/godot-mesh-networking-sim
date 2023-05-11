@@ -66,3 +66,13 @@ func _on_wireless_signal_area_exited(area):
 		area.get_parent().remove_connection(self)
 		if area == nearest_node:
 			nearest_node = null
+		
+		
+func receive(data):
+	print("received data from: ", data.from)
+	show_message(data.data)
+	
+func show_message(message):
+	$Message.text = message
+	await get_tree().create_timer(5).timeout
+	$Message.text = ""	
