@@ -3,14 +3,16 @@ extends LineEdit
 var is_active = false
 var fps_node
 var camrea_node
+var controller 
 var history = []
 var history_index = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	fps_node = get_parent().get_parent().get_node("FPS")
+	fps_node = get_parent().get_node("FPS")
 	camrea_node = get_parent().get_parent().get_parent()
-
+	controller = get_tree().root.get_child(0).get_node("Controller")
+	print(controller)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -20,11 +22,13 @@ func _process(delta):
 		self.grab_focus()
 		fps_node.visible = false
 		camrea_node.can_move = false
+		controller.can_run = false
 	if Input.is_action_just_pressed("esc") and is_active:
 		self.visible = false
 		is_active = false
 		fps_node.visible = true
 		camrea_node.can_move = true
+		controller.can_run = true		
 	if Input.is_action_just_pressed("enter") and is_active:
 		run_command(self.text)
 		history.append(self.text)
@@ -55,6 +59,10 @@ func run_command(text):
 		for N in get_tree().root.get_child(0).get_node("Controller").get_children():
 			N.broadcast_queue = []
 			print("Cleared Broadcast Queue For: ", N.name)
+	elif split_text[0] == "open":
+		for N in get_tree().root.get_child(0).get_node("Controller").get_children():
+			N.has_packet_animation_open()
+		
 	else:
 		print("Unknown Command: ", split_text[0])
 

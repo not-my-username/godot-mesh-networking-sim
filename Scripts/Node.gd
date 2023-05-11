@@ -20,7 +20,12 @@ var path_packet = {
 var debug
 var hover = false
 var texture_node
+
+# Animation Varibals 
+
 var emmit_animation_running = false
+var packet_animation_opening = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	debug = self.get_parent().debug
@@ -36,18 +41,21 @@ func _ready():
 
 func _process(delta):
 #	self.get_node("Distance").text = str(connected_devices)
-	if self.get_parent().can_run and Input.is_action_just_pressed("enter"):
-		await run_mesh()
+	if self.get_parent().auto_run and self.get_parent().can_run:
+		run_mesh()
+	elif self.get_parent().can_run and Input.is_action_just_pressed("enter"):
+		run_mesh()
 		
 func run_mesh():
-	if emmit_animation_running:
-		emmit_animation_close()
+		
 	if ready_to_broadcast and len(broadcast_queue) !=0:
 		await broadcast(broadcast_queue[0])
-		emmit_animation_open()
+		emmit_animation()
 		broadcast_queue.erase(broadcast_queue[0])
-		if len(broadcast_queue) == 0:
-				texture_node.texture = load("res://Textures/Node/node.png")
+		if len(broadcast_queue) == 0 and len(queue) == 0:
+			has_packet_animation_close()
+		
+	
 	if len(queue) != 0 :
 		data_to_send = {}
 		if queue[0].type == "data":
@@ -79,7 +87,8 @@ func run_mesh():
 #				print(self.name, " Receved Path Packet From: ", item.from)
 #				print(item)
 #				print("\n\n\n\n\n")
-				pass
+				if len(broadcast_queue) == 0 and len(queue) == 0:
+					has_packet_animation_close()
 				
 			else:
 				data_to_send = item.duplicate(true)
@@ -91,11 +100,14 @@ func run_mesh():
 		
 		if len(queue) != 0:
 			queue.remove_at(0)
-		
+			if len(broadcast_queue) == 0 and len(queue) == 0:
+				has_packet_animation_close()
+#	if len(broadcast_queue) == 0 and len(queue) == 0:
+#			has_packet_animation_close()
+				
 func send(data, from):
 	queue.append(data)
-	texture_node.texture = load("res://Textures/Node/node-has-packet.png")
-	
+	has_packet_animation_open()
 	
 func broadcast(data):
 	ready_to_broadcast = false
@@ -104,13 +116,11 @@ func broadcast(data):
 	await get_tree().create_timer(0.1).timeout
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 0
 	ready_to_broadcast = true
-	return ready_to_broadcast
 
 func add_connection(node):
 	if node.name not in connected_devices:
 		connected_devices.append(node.name)
 		texture_node.texture = load("res://Textures/Node/node-device-connected.png")
-
 
 func remove_connection(node):
 	if node.name in connected_devices:	
@@ -126,11 +136,8 @@ func _on_area_2d_area_entered(area):
 				return
 			else:
 				packets_handled.append(data.id)
-#				if self.name == "Node120":
-#					print("Appeneding: ", data)
-#					print()
 				queue.append(data)
-				texture_node.texture = load("res://Textures/Node/node-has-packet.png")
+				has_packet_animation_open()
 				
 		
 #	elif area.name == "Wireless Signal":
@@ -154,23 +161,48 @@ func _on_mesh_signal_area_exited(area):
 #		return
 	pass
 
-func emmit_animation_open():
+func emmit_animation():
 	if $Emmit.visible:
 		return
-	emmit_animation_running = true
 	$Emmit.visible = true
+	var speed = 0
+	if get_parent().auto_run:
+		speed = 0.08
+	else: 
+		speed = 0.05
+		
 	var i = 0.07
 	while i < .7:
 		$Emmit.scale = Vector2(i, i)
 		await get_tree().create_timer(0.01).timeout	
-		i += 0.08
-	
-func emmit_animation_close():
-	var i = .7
+		i += speed
+		
 	while i > 0.07:
 		$Emmit.scale = Vector2(i, i)
 		await get_tree().create_timer(0.01).timeout	
-		i -= 0.08
+		i -= speed
 		
 	$Emmit.visible = false
-	emmit_animation_running = false
+
+func has_packet_animation_open():
+	if $Packet.visible:
+		return
+	packet_animation_opening = true
+	$Packet.visible = true
+	
+	var i = 0.07
+	while i < .15:
+		$Packet.scale = Vector2(i, i)
+		await get_tree().create_timer(0.01).timeout	
+		i += 0.02
+	packet_animation_opening = false
+	
+func has_packet_animation_close():
+		
+	var i = .15
+	while i > 0:
+		$Packet.scale = Vector2(i, i)
+		await get_tree().create_timer(0.01).timeout	
+		i -= 0.02
+		
+	$Packet.visible = false

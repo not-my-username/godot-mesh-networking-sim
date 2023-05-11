@@ -72,6 +72,4 @@ func _on_wireless_signal_area_exited(area):
 		area.get_parent().get_node("Distance").text = ""
 		area.get_parent().remove_connection(self)
 		if area == nearest_node:
-			nearest_node.get_parent().get_node("Texture").texture = load("res://Textures/Node/node.png") 
-			nearest_node.get_parent().remove_connection(self)
 			nearest_node = null

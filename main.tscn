@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvcddapx8r1jn"]
+[gd_scene load_steps=22 format=3 uid="uid://b4oohntroqtcx"]
 
 [ext_resource type="Script" path="res://Scripts/Camrea.gd" id="1_nxwdh"]
 [ext_resource type="Script" path="res://fps.gd" id="2_it872"]
@@ -6,18 +6,40 @@
 [ext_resource type="Script" path="res://Console.gd" id="3_guboy"]
 [ext_resource type="Texture2D" uid="uid://ccsuoqocf715x" path="res://Textures/computer.png" id="5_dn38h"]
 [ext_resource type="Script" path="res://Scripts/Computer.gd" id="6_cih7c"]
+[ext_resource type="Texture2D" uid="uid://4uxnj632o4pi" path="res://Textures/box.png" id="7_4dg73"]
 [ext_resource type="Texture2D" uid="uid://m3tidsrx552w" path="res://Textures/server.png" id="7_7pryx"]
-[ext_resource type="Texture2D" uid="uid://botti246kjv26" path="res://Textures/fps_box.png" id="7_youds"]
 [ext_resource type="Script" path="res://Scripts/Server.gd" id="8_qg8kr"]
+[ext_resource type="Texture2D" uid="uid://dbfx20boqkb64" path="res://Textures/box-small.png" id="10_rqh0d"]
+[ext_resource type="Texture2D" uid="uid://ccwxncj6qdto" path="res://Textures/step.png" id="11_3niit"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vsv"]
 size = Vector2(42, 162)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_us70n"]
-size = Vector2(48, 48)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_unn37"]
+size = Vector2(74, 94)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fqw02"]
 radius = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_us70n"]
+size = Vector2(76, 66)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_31sgr"]
+
+[sub_resource type="Theme" id="Theme_jxl5t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vl2ws"]
+texture = ExtResource("10_rqh0d")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bpmur"]
+texture = ExtResource("10_rqh0d")
+modulate_color = Color(0.788235, 0.788235, 0.788235, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rggpw"]
+texture = ExtResource("10_rqh0d")
+modulate_color = Color(0.717647, 0.717647, 0.717647, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t3mos"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -45,7 +67,7 @@ texture = ExtResource("5_dn38h")
 [node name="Mouse Box" type="Area2D" parent="Computer"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Computer/Mouse Box"]
-shape = SubResource("RectangleShape2D_us70n")
+shape = SubResource("RectangleShape2D_unn37")
 
 [node name="Wireless Signal" type="Area2D" parent="Computer"]
 
@@ -58,7 +80,7 @@ debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
 collide_with_areas = true
 
 [node name="Server" type="Node2D" parent="."]
-position = Vector2(1228, 432)
+position = Vector2(-139, 659)
 script = ExtResource("8_qg8kr")
 metadata/_edit_group_ = true
 
@@ -97,13 +119,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="FpsBox" type="Sprite2D" parent="Camera2D/CanvasLayer/Control"]
+[node name="Box2" type="Sprite2D" parent="Camera2D/CanvasLayer/Control"]
 position = Vector2(47, 19)
 scale = Vector2(0.615646, 0.670213)
-texture = ExtResource("7_youds")
+texture = ExtResource("7_4dg73")
 
 [node name="FPS" type="Label" parent="Camera2D/CanvasLayer/Control"]
-modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 21.0
 offset_top = 7.0
 offset_right = 61.0
@@ -120,6 +142,112 @@ offset_bottom = 31.0
 grow_horizontal = 2
 script = ExtResource("3_guboy")
 
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.5
+offset_top = -47.0
+offset_right = 73.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("7_4dg73")
+
+[node name="CheckButton" type="CheckButton" parent="Camera2D/CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -39.0
+offset_right = 61.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Allow the simulation to run at full speed."
+theme_override_styles/focus = SubResource("StyleBoxEmpty_31sgr")
+button_pressed = true
+text = "Auto Run"
+
+[node name="Button" type="Button" parent="Camera2D/CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -48.0
+offset_right = 150.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_jxl5t")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vl2ws")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bpmur")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rggpw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t3mos")
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control/Button"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 56.0
+offset_bottom = 35.0
+texture = ExtResource("11_3niit")
+expand_mode = 1
+
+[node name="Button2" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.421
+anchor_top = 0.351
+anchor_right = 0.458
+anchor_bottom = 1.014
+offset_left = 0.679932
+offset_top = 0.0259991
+offset_right = -0.360046
+offset_bottom = -0.0360031
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_jxl5t")
+texture = ExtResource("10_rqh0d")
+
+[node name="LineEdit" type="LineEdit" parent="Camera2D/CanvasLayer/Control/Control/Button2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -15.5
+offset_right = 33.0625
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Delay in milliseconds of each loop of the mesh, 0 to run as fast as possible"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "10"
+alignment = 1
+virtual_keyboard_type = 2
+flat = true
+
 [connection signal="mouse_entered" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_exited"]
 [connection signal="area_entered" from="Computer/Wireless Signal" to="Computer" method="_on_wireless_signal_area_entered"]
@@ -129,3 +257,5 @@ script = ExtResource("3_guboy")
 [connection signal="area_entered" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_entered"]
 [connection signal="area_exited" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_exited"]
 [connection signal="text_changed" from="Camera2D/CanvasLayer/Control/Console" to="Camera2D/CanvasLayer/Control/Console" method="_on_text_changed"]
+[connection signal="toggled" from="Camera2D/CanvasLayer/Control/Control/CheckButton" to="Controller" method="_on_auto_run_button_toggled"]
+[connection signal="text_changed" from="Camera2D/CanvasLayer/Control/Control/Button2/LineEdit" to="Controller" method="_on_delay_text_changed"]

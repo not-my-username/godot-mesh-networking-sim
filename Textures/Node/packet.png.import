@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://botti246kjv26"
-path="res://.godot/imported/fps_box.png-c04c89be48fa38ad6bac3ddd0046396a.ctex"
+uid="uid://csflqywrc55yj"
+path="res://.godot/imported/packet.png-a5b6c3a3fd0facc60b041ac4fa75d28d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/fps_box.png"
-dest_files=["res://.godot/imported/fps_box.png-c04c89be48fa38ad6bac3ddd0046396a.ctex"]
+source_file="res://Textures/Node/packet.png"
+dest_files=["res://.godot/imported/packet.png-a5b6c3a3fd0facc60b041ac4fa75d28d.ctex"]
 
 [params]
 

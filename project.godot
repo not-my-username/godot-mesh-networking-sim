@@ -30,8 +30,6 @@ window/size/mode=2
 
 movie_writer/movie_file="E:/Godot/render.mp4.avi"
 movie_writer/fps=120
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
 
 [gui]
 
@@ -39,6 +37,26 @@ common/drop_mouse_on_gui_input_disabled=true
 
 [input]
 
+ui_accept={
+"deadzone": 0.5,
+"events": []
+}
+ui_select={
+"deadzone": 0.5,
+"events": []
+}
+ui_cancel={
+"deadzone": 0.5,
+"events": []
+}
+ui_focus_next={
+"deadzone": 0.5,
+"events": []
+}
+ui_focus_prev={
+"deadzone": 0.5,
+"events": []
+}
 up={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194320,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
