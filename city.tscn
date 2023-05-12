@@ -1,0 +1,539 @@
+[gd_scene load_steps=24 format=3 uid="uid://6iavgtri8bmi"]
+
+[ext_resource type="Texture2D" uid="uid://bmmnbnv1qetoq" path="res://Textures/Wigram.png" id="1_viw21"]
+[ext_resource type="Script" path="res://City_Controller.gd" id="2_bmttu"]
+[ext_resource type="Script" path="res://Scripts/Computer.gd" id="3_1t7y8"]
+[ext_resource type="PackedScene" uid="uid://bp2og3uyjdklg" path="res://node.tscn" id="3_pwvqg"]
+[ext_resource type="Texture2D" uid="uid://ccsuoqocf715x" path="res://Textures/computer.png" id="4_qk4g5"]
+[ext_resource type="Script" path="res://Scripts/Server.gd" id="5_xlrt6"]
+[ext_resource type="Texture2D" uid="uid://m3tidsrx552w" path="res://Textures/server.png" id="6_j48yo"]
+[ext_resource type="Script" path="res://Scripts/Camrea.gd" id="7_7t036"]
+[ext_resource type="Texture2D" uid="uid://4uxnj632o4pi" path="res://Textures/box.png" id="8_4jyor"]
+[ext_resource type="Script" path="res://fps.gd" id="9_4uqad"]
+[ext_resource type="Script" path="res://Console.gd" id="10_5jo2q"]
+[ext_resource type="Texture2D" uid="uid://dbfx20boqkb64" path="res://Textures/box-small.png" id="11_exn4c"]
+[ext_resource type="Texture2D" uid="uid://ccwxncj6qdto" path="res://Textures/step.png" id="12_xnsam"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0f5nd"]
+size = Vector2(42, 162)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hf1tr"]
+
+[sub_resource type="Theme" id="Theme_7ic86"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wtric"]
+texture = ExtResource("11_exn4c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_31ovh"]
+texture = ExtResource("11_exn4c")
+modulate_color = Color(0.788235, 0.788235, 0.788235, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_egl4f"]
+texture = ExtResource("11_exn4c")
+modulate_color = Color(0.717647, 0.717647, 0.717647, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uj56l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddup6"]
+size = Vector2(74, 94)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7bexs"]
+radius = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hake2"]
+size = Vector2(76, 66)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-77, -20.5)
+texture = ExtResource("1_viw21")
+
+[node name="Controller" type="Node2D" parent="."]
+script = ExtResource("2_bmttu")
+
+[node name="Node" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-588, -26)
+
+[node name="Node2" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(830, 546)
+
+[node name="Node3" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(424, -133)
+
+[node name="Node4" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(299, -337)
+
+[node name="Node5" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(780, -382)
+
+[node name="Node6" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(717, -145)
+
+[node name="Node7" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(569, 276)
+
+[node name="Node8" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(365, 420)
+
+[node name="Node9" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(700, 158)
+
+[node name="Node10" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(677, 778)
+
+[node name="Node11" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-24, -365)
+
+[node name="Node12" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(257, -574)
+
+[node name="Node13" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(543, -477)
+
+[node name="Node14" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1046, -26)
+
+[node name="Node15" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(94, 460)
+
+[node name="Node16" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-55, 182)
+
+[node name="Node17" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-167, -60)
+
+[node name="Node18" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(97, -177)
+
+[node name="Node19" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-540, -380)
+
+[node name="Node20" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-315, -350)
+
+[node name="Node21" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(199, 86)
+
+[node name="Node22" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-427, 61)
+
+[node name="Node23" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-731, -162)
+
+[node name="Node24" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-437, -152)
+
+[node name="Node25" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-897, 49)
+
+[node name="Node26" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-656, 485)
+
+[node name="Node27" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(410, 121)
+
+[node name="Node28" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-768, 235)
+
+[node name="Node29" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(96, 828)
+
+[node name="Node30" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-13, 668)
+
+[node name="Node31" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-226, 395)
+
+[node name="Node32" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-260, 743)
+
+[node name="Node33" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-680, 692)
+
+[node name="Node34" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-428, 533)
+
+[node name="Node35" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1174, 377)
+
+[node name="Node36" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(348, 883)
+
+[node name="Node37" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1030, 266)
+
+[node name="Node38" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(581, 549)
+
+[node name="Node39" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(319, 654)
+
+[node name="Node40" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-793, -356)
+
+[node name="Node41" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-565, 894)
+
+[node name="Node42" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(60, 1025)
+
+[node name="Node43" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-782, 1005)
+
+[node name="Node44" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-270, 925)
+
+[node name="Node45" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-970, 595)
+
+[node name="Node46" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1961, 110)
+
+[node name="Node47" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1064, 344)
+
+[node name="Node48" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1969, -181)
+
+[node name="Node49" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1840, -285)
+
+[node name="Node50" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1979, -418)
+
+[node name="Node51" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1838, -559)
+
+[node name="Node52" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1367, -1024)
+
+[node name="Node53" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1254, -813)
+
+[node name="Node54" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1472, -861)
+
+[node name="Node55" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1580, -712)
+
+[node name="Node56" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1636, -489)
+
+[node name="Node57" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1693, -245)
+
+[node name="Node58" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1745, -15)
+
+[node name="Node59" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1725, 244)
+
+[node name="Node60" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1420, 216)
+
+[node name="Node61" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1523, -342)
+
+[node name="Node62" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1412, -614)
+
+[node name="Node63" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1180, -598)
+
+[node name="Node64" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1286, -353)
+
+[node name="Node65" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1548, -72)
+
+[node name="Node66" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1253, 137)
+
+[node name="Node67" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1202, -102)
+
+[node name="Node68" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1098, -290)
+
+[node name="Node73" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1428, 475)
+
+[node name="Node74" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1329, 689)
+
+[node name="Node75" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(644, 1335)
+
+[node name="Node76" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1105, 1045)
+
+[node name="Node77" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(843, 1135)
+
+[node name="Node78" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(958, 836)
+
+[node name="Node79" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(580, 1033)
+
+[node name="Node80" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(343, 1282)
+
+[node name="Node81" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-273, 1134)
+
+[node name="Node82" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(10, 1274)
+
+[node name="Node83" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-460, 1233)
+
+[node name="Node69" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-985, -110)
+
+[node name="Node70" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-1263, 363)
+
+[node name="Node71" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(-957, -524)
+
+[node name="Node72" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(819, 291)
+
+[node name="Node84" parent="Controller" instance=ExtResource("3_pwvqg")]
+position = Vector2(1166, 749)
+
+[node name="Wall" type="Area2D" parent="."]
+visible = false
+position = Vector2(1040, 376)
+metadata/_edit_group_ = true
+
+[node name="Wall2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(11, 71)
+shape = SubResource("RectangleShape2D_0f5nd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(528, 500)
+zoom = Vector2(0.73, 0.73)
+script = ExtResource("7_7t036")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Box2" type="Sprite2D" parent="Camera2D/CanvasLayer/Control"]
+position = Vector2(47, 19)
+scale = Vector2(0.615646, 0.670213)
+texture = ExtResource("8_4jyor")
+
+[node name="FPS" type="Label" parent="Camera2D/CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 7.0
+offset_right = 61.0
+offset_bottom = 33.0
+text = "FPS"
+script = ExtResource("9_4uqad")
+
+[node name="Console" type="LineEdit" parent="Camera2D/CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+script = ExtResource("10_5jo2q")
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.5
+offset_top = -47.0
+offset_right = 73.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("8_4jyor")
+
+[node name="CheckButton" type="CheckButton" parent="Camera2D/CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -39.0
+offset_right = 61.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Allow the simulation to run at full speed."
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hf1tr")
+button_pressed = true
+text = "Auto Run"
+
+[node name="Button" type="Button" parent="Camera2D/CanvasLayer/Control/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -48.0
+offset_right = 150.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_7ic86")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wtric")
+theme_override_styles/hover = SubResource("StyleBoxTexture_31ovh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_egl4f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uj56l")
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control/Button"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 56.0
+offset_bottom = 35.0
+texture = ExtResource("12_xnsam")
+expand_mode = 1
+
+[node name="Button2" type="TextureRect" parent="Camera2D/CanvasLayer/Control/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.421
+anchor_top = 0.351
+anchor_right = 0.458
+anchor_bottom = 1.014
+offset_left = 0.679932
+offset_top = 0.0259991
+offset_right = -0.360046
+offset_bottom = -0.0360031
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_7ic86")
+texture = ExtResource("11_exn4c")
+
+[node name="LineEdit" type="LineEdit" parent="Camera2D/CanvasLayer/Control/Control/Button2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -15.5
+offset_right = 33.0625
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Delay in milliseconds of each loop of the mesh, 0 to run as fast as possible"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "10"
+alignment = 1
+virtual_keyboard_type = 2
+flat = true
+
+[node name="Computer" type="Node2D" parent="."]
+script = ExtResource("3_1t7y8")
+metadata/_edit_group_ = true
+
+[node name="Computer" type="Sprite2D" parent="Computer"]
+scale = Vector2(0.471, 0.471)
+texture = ExtResource("4_qk4g5")
+
+[node name="Mouse Box" type="Area2D" parent="Computer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Computer/Mouse Box"]
+shape = SubResource("RectangleShape2D_ddup6")
+
+[node name="Wireless Signal" type="Area2D" parent="Computer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Computer/Wireless Signal"]
+shape = SubResource("CircleShape2D_7bexs")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
+
+[node name="RayCast2D" type="RayCast2D" parent="Computer"]
+collide_with_areas = true
+
+[node name="Message" type="RichTextLabel" parent="Computer"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -576.0
+offset_top = -47.0
+offset_right = -37.0
+offset_bottom = -24.0
+bbcode_enabled = true
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Server" type="Node2D" parent="."]
+position = Vector2(79, 219)
+script = ExtResource("5_xlrt6")
+metadata/_edit_group_ = true
+
+[node name="Mouse Box" type="Area2D" parent="Server"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Server/Mouse Box"]
+shape = SubResource("RectangleShape2D_hake2")
+
+[node name="Wireless Signal" type="Area2D" parent="Server"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Server/Wireless Signal"]
+shape = SubResource("CircleShape2D_7bexs")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.592157, 0.733333, 0.0627451)
+
+[node name="RayCast2D" type="RayCast2D" parent="Server"]
+collide_with_areas = true
+
+[node name="Server" type="Sprite2D" parent="Server"]
+scale = Vector2(0.464, 0.464)
+texture = ExtResource("6_j48yo")
+
+[node name="Message" type="RichTextLabel" parent="Server"]
+modulate = Color(0, 0, 0, 1)
+offset_left = 41.0
+offset_top = -34.0
+offset_right = 580.0
+offset_bottom = -11.0
+bbcode_enabled = true
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="text_changed" from="Camera2D/CanvasLayer/Control/Console" to="Camera2D/CanvasLayer/Control/Console" method="_on_text_changed"]
+[connection signal="toggled" from="Camera2D/CanvasLayer/Control/Control/CheckButton" to="Controller" method="_on_auto_run_button_toggled"]
+[connection signal="mouse_entered" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Computer/Mouse Box" to="Computer" method="_on_area_2d_mouse_exited"]
+[connection signal="area_entered" from="Computer/Wireless Signal" to="Computer" method="_on_wireless_signal_area_entered"]
+[connection signal="area_exited" from="Computer/Wireless Signal" to="Computer" method="_on_wireless_signal_area_exited"]
+[connection signal="mouse_entered" from="Server/Mouse Box" to="Server" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Server/Mouse Box" to="Server" method="_on_area_2d_mouse_exited"]
+[connection signal="area_entered" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_entered"]
+[connection signal="area_exited" from="Server/Wireless Signal" to="Server" method="_on_wireless_signal_area_exited"]

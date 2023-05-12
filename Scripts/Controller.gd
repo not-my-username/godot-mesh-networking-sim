@@ -9,9 +9,14 @@ const res = preload("res://node.tscn")
 var debug_name = ""
 var can_run = true
 var auto_run = true
+var global
+var change_to = false
+var type = "normal"
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	var root = get_tree().get_root()
+
 	for x in w:
 		for y in h:
 			var node = res.instantiate()
@@ -33,9 +38,21 @@ func _ready():
 			
 #
 #			debug_name = ""
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+
+	if change_to:
+		get_tree().change_scene_to_file(change_to)					
+
+	if Input.is_action_just_pressed("change_type"):
+		if type == "city":
+			type == "normal"
+			get_tree().change_scene_to_file("res://main.tscn")
+		elif type == "normal":
+			type = "city"
+			get_tree().change_scene_to_file("res://city.tscn")
+			
+
+
 
 
 func _on_auto_run_button_toggled(button_pressed):

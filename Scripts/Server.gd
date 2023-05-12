@@ -26,7 +26,10 @@ func _process(delta):
 	if Input.is_action_just_released("leftClick") and hover:
 		move = false
 	if move:
-		self.position = get_global_mouse_position()
+#		if get_tree().root.get_child(0).get_node("Controller").type == "city":
+#			self.position = get_global_mouse_position() - Vector2(500, 500)
+#		else:
+		self.position = get_global_mouse_position()			
 
 	if move and len(nodes_in_range) != 0:
 		nearest_node = nodes_in_range[0]

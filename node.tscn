@@ -11,6 +11,7 @@ size = Vector2(3.03133, 3.22293)
 [node name="Node" type="Node2D"]
 scale = Vector2(1.31258, 1.31258)
 script = ExtResource("1_tu833")
+metadata/_edit_group_ = true
 
 [node name="Distance" type="RichTextLabel" parent="."]
 offset_left = -13.2

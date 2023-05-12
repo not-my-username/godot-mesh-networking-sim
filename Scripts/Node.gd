@@ -32,7 +32,8 @@ var known_paths = {
 var debug
 var hover = false
 var texture_node
-
+var broadcast_size = 65
+var type
 # Animation Varibals 
 
 var emmit_animation_running = false
@@ -49,7 +50,9 @@ func _ready():
 	collision.shape.radius = 0
 	self.get_node("Mesh Signal").add_child(collision)
 	texture_node = $Texture
-	
+	if get_parent().type == "city":
+		broadcast_size = 200
+	type = get_parent().type
 
 func _process(delta):
 #	self.get_node("Distance").text = str(connected_devices)
@@ -119,6 +122,7 @@ func run_mesh():
 				print(self.name, " Active Packets: ", active_packets)
 				data_to_send = active_packets[item.data_id]
 				data_to_send.path = item.path
+				data_to_send.id = randi_range(999999, 100000)
 				active_packets.erase(item.data_id)
 				packets_handled.append(data_to_send.id)
 				broadcast_queue.append(data_to_send)
@@ -145,7 +149,7 @@ func send(data, from):
 func broadcast(data):
 	ready_to_broadcast = false
 	self.get_node("Mesh Signal/CollisionShape2D").set_meta("data", data)
-	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 65
+	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = broadcast_size
 	await get_tree().create_timer(0.1).timeout
 	self.get_node("Mesh Signal/CollisionShape2D").shape.radius = 0
 	ready_to_broadcast = true
@@ -164,13 +168,20 @@ func remove_connection(node):
 func _on_area_2d_area_entered(area):
 	if area.name == "Mesh Signal" and area != $"Mesh Signal":
 		var data = area.get_node("CollisionShape2D").get_meta("data")
+		print(area.get_parent(), self.name)
+		if data.type == "data":
+			print(self.name, " Has data packet from: ", data.from, " With id of: ", data.id)
 		if data.id not in packets_handled:
 			if data.type == "path":
 				if data.is_return and self.name not in data.path:
 					return
 			elif data.type == "data":
+				print(self.name, " Has data packet form ", data.from)
+				
 				if data.type == "data" and self.name not in data.path:
 					return
+				print(data.path)
+				print()
 			packets_handled.append(data.id)
 			queue.append(data)
 			has_packet_animation_open()
@@ -208,8 +219,13 @@ func emmit_animation():
 	else: 
 		speed = 0.05
 		
+	if type == "city":
+		speed += 0.3
+		
 	var i = 0.07
-	while i < .7:
+	var size = float(broadcast_size) / 92
+
+	while i < size:
 		$Emmit.scale = Vector2(i, i)
 		await get_tree().create_timer(0.01).timeout	
 		i += speed

@@ -16,7 +16,7 @@ var packet = {
 }
 var message = "Hello From Computer"
 @onready var rayCast2D = $RayCast2D
-@onready var console = get_tree().root.get_child(0).get_node("Camera2D/CanvasLayer/Control/Console")
+#@onready var console = get_tree().root.get_child(0).get_node("Camera2D/CanvasLayer/Control/Console")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,7 +27,7 @@ func _process(delta):
 	if move:
 		self.position = get_global_mouse_position()
 		
-	if Input.is_action_just_pressed("space") and console.is_active == false:
+	if Input.is_action_just_pressed("space"):
 			print("Sending Data")
 			if nearest_node:
 				packet.to = "Server"
